@@ -4,7 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/bmi_cubit.dart';
 
 class MaleSelectionWidget extends StatelessWidget {
-  const MaleSelectionWidget({super.key});
+  final bool isMale;
+  final VoidCallback onPressed;
+  const MaleSelectionWidget({
+    super.key,
+    required this.isMale,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class MaleSelectionWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        onPressed: context.read<BmiCubit>().changeGender, 
+        onPressed: context.read<BmiCubit>().changeGender,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -26,7 +32,9 @@ class MaleSelectionWidget extends StatelessWidget {
               builder: (context, state) {
                 return Icon(
                   Icons.male,
-                  color: (state.isMale == true) ?const Color(0xFFFF0C63):const Color(0xFFB2B9D5),
+                  color: (state.isMale == true)
+                      ? const Color(0xFFFF0C63)
+                      : const Color(0xFFB2B9D5),
                   size: 90,
                 );
               },
