@@ -1,8 +1,7 @@
 import 'package:bmi_calculator/home/home_bmi_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../cubit/bmi_cubit.dart';
+import 'package:provider/provider.dart';
+import '../model/bmi_model.dart';
 
 class BackButtonWidget extends StatelessWidget {
   const BackButtonWidget({super.key});
@@ -14,24 +13,22 @@ class BackButtonWidget extends StatelessWidget {
         elevation: 0,
         fixedSize: Size(MediaQuery.of(context).size.width, 60),
         backgroundColor: const Color(0XFFFF0C63),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       onPressed: () {
+        Provider.of<BmiModel>(context, listen: false).resetAll();
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const HomeBmiScreen()),
-          (Route<dynamic> route) => false
+          (Route<dynamic> route) => false,
         );
-        context.read<BmiCubit>().clear();
-      }, 
+      },
       child: const Text(
         "Back To Home",
         style: TextStyle(
           color: Colors.white,
           fontSize: 24.0,
-          fontWeight: FontWeight.bold
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

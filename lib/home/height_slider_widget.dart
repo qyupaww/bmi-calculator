@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../cubit/bmi_cubit.dart';
+import 'package:provider/provider.dart';
+import '../model/bmi_model.dart';
 
 class HeightSliderWidget extends StatelessWidget {
   const HeightSliderWidget({super.key});
@@ -15,8 +14,8 @@ class HeightSliderWidget extends StatelessWidget {
         shape: BoxShape.rectangle,
         color: Color(0xFF272D4D),
       ),
-      child: BlocBuilder<BmiCubit, BmiState>(
-        builder: (context, state) {
+      child: Consumer<BmiModel>(
+        builder: (context, bmiModel, child) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -33,12 +32,12 @@ class HeightSliderWidget extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${state.height.toInt()}",
+                      text: "${bmiModel.height.toInt()}",
                       style: const TextStyle(
                         fontSize: 56.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                      ),  
+                      ),
                     ),
                     const TextSpan(
                       text: "cm",
@@ -46,9 +45,9 @@ class HeightSliderWidget extends StatelessWidget {
                         fontSize: 20.0,
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
-                      ),  
+                      ),
                     ),
-                  ]
+                  ],
                 ),
               ),
               const SizedBox(height: 12.0),
@@ -58,9 +57,10 @@ class HeightSliderWidget extends StatelessWidget {
                 thumbColor: const Color(0xffFF0C63),
                 min: 50,
                 max: 250,
-                value: state.height, 
+                value: bmiModel.height,
                 onChanged: (value) {
-                  context.read<BmiCubit>().setHeightValue(value);
+                  // call provider method to update height and notify listeners
+                  bmiModel.setHeightValue(value);
                 },
               ),
             ],
