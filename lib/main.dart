@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
-import 'cubit/bmi_cubit.dart';
 import 'home/home_bmi_screen.dart';
-
+import 'model/bmi_model.dart';
 
 void main() {
   runApp(
-    BlocProvider(
-      create: (_) => BmiCubit(),
+    ChangeNotifierProvider(
+      create: (_) => BmiModel(),
       child: const BmiCalculatorApp(),
-    )
+    ),
   );
 }
 
@@ -25,5 +24,3 @@ class BmiCalculatorApp extends StatelessWidget {
     );
   }
 }
-
-
