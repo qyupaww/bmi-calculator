@@ -24,8 +24,8 @@ class FemaleSelectionWidget extends StatelessWidget {
             Icon(
               Icons.female,
               color: (Provider.of<BmiModel>(context).isMale == true)
-                  ? const Color(0xFFFF0C63)
-                  : const Color(0xFFB2B9D5),
+                  ? const Color(0xFFB2B9D5)
+                  : const Color(0xFFFF0C63),
               size: 90,
             ),
             const SizedBox(height: 8.0),
