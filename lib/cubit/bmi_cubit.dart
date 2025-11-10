@@ -66,4 +66,8 @@ class BmiCubit extends Cubit<BmiState> {
       return "Berat badan sangat berlebihan (obesitas)";
     }
   }
+
+  void clear() {
+    emit(state.clear());
+  }
 }

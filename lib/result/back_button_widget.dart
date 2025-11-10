@@ -1,7 +1,7 @@
 import 'package:bmi_calculator/home/home_bmi_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../model/bmi_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/bmi_cubit.dart';
 
 class BackButtonWidget extends StatelessWidget {
   const BackButtonWidget({super.key});
@@ -16,7 +16,7 @@ class BackButtonWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       onPressed: () {
-        Provider.of<BmiModel>(context, listen: false).resetAll();
+        context.read<BmiCubit>().clear();
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const HomeBmiScreen()),

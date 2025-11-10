@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../model/bmi_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/bmi_cubit.dart';
 
 class ResultContainerWidget extends StatelessWidget {
   const ResultContainerWidget({super.key});
@@ -22,7 +22,7 @@ class ResultContainerWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            Provider.of<BmiModel>(context).getBmiStatus(),
+            context.read<BmiCubit>().getBmiStatus(),
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -31,7 +31,7 @@ class ResultContainerWidget extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            Provider.of<BmiModel>(context).calculateBmi().toStringAsFixed(2),
+            context.read<BmiCubit>().calculateBmi().toStringAsFixed(2),
             style: const TextStyle(
               fontSize: 56.0,
               fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class ResultContainerWidget extends StatelessWidget {
             ),
           ),
           Text(
-            Provider.of<BmiModel>(context).getBmiDescription(),
+            context.read<BmiCubit>().getBmiDescription(),
             style: const TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../model/bmi_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/bmi_cubit.dart';
 
 class FemaleSelectionWidget extends StatelessWidget {
   const FemaleSelectionWidget({super.key});
@@ -17,16 +17,20 @@ class FemaleSelectionWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        onPressed: Provider.of<BmiModel>(context, listen: false).changeGender,
+        onPressed: context.read<BmiCubit>().changeGender,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.female,
-              color: (Provider.of<BmiModel>(context).isMale == true)
-                  ? const Color(0xFFB2B9D5)
-                  : const Color(0xFFFF0C63),
-              size: 90,
+            BlocBuilder<BmiCubit, BmiState>(
+              builder: (context, state) {
+                return Icon(
+                  Icons.female,
+                  color: (state.isMale == false)
+                      ? const Color(0xFFFF0C63)
+                      : const Color(0xFFB2B9D5),
+                  size: 90,
+                );
+              },
             ),
             const SizedBox(height: 8.0),
             const Text(
