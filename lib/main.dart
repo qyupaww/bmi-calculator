@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'cubit/bmi_cubit.dart';
 import 'home/home_bmi_screen.dart';
-import 'model/bmi_model.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => BmiModel(),
-      child: const BmiCalculatorApp(),
-    ),
+    BlocProvider(create: (_) => BmiCubit(), child: const BmiCalculatorApp()),
   );
 }
 

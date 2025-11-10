@@ -1,55 +1,44 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+part 'bmi_state.dart';
 
-class BmiModel extends ChangeNotifier {
-  int _age = 15;
-  int _weight = 35;
-  double _height = 100.0;
-  bool _isMale = true;
-
-  int get age => _age;
-
-  int get weight => _weight;
-
-  double get height => _height;
-
-  bool get isMale => _isMale;
+class BmiCubit extends Cubit<BmiState> {
+  BmiCubit() : super(const BmiState());
 
   void changeGender() {
-    _isMale = !_isMale;
-    notifyListeners();
+    emit(state.copyWith(isMale: !state.isMale));
   }
 
   void decrementWeight() {
-    if (_weight > 0) {
-      _weight--;
-      notifyListeners();
+    if (state.weight > 0) {
+      emit(state.copyWith(weight: state.weight - 1));
     }
   }
 
   void incrementWeight() {
-    _weight++;
-    notifyListeners();
+    emit(state.copyWith(weight: state.weight + 1));
   }
 
   void decrementAge() {
-    if (_age > 0) {
-      _age--;
-      notifyListeners();
+    if (state.age > 0) {
+      emit(state.copyWith(age: state.age - 1));
     }
   }
 
   void incrementAge() {
-    _age++;
-    notifyListeners();
+    emit(state.copyWith(age: state.age + 1));
   }
 
   void setHeightValue(double value) {
-    _height = value;
-    notifyListeners();
+    emit(state.copyWith(height: value));
+  }
+
+  void ckear() {
+    emit(state.clear());
   }
 
   double calculateBmi() {
-    return _weight / (( _height / 100 ) * ( _height / 100 ));
+    return state.weight /
+        ((state.height.toInt() / 100) * (state.height.toInt() / 100));
   }
 
   String getBmiStatus() {
@@ -78,10 +67,7 @@ class BmiModel extends ChangeNotifier {
     }
   }
 
-  void resetAll() {
-    _age = 15;
-    _weight = 35;
-    _height = 100.0;
-    _isMale = true;
+  void clear() {
+    emit(state.clear());
   }
 }

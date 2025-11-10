@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../model/bmi_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/bmi_cubit.dart';
 
 class HeightSliderWidget extends StatelessWidget {
   const HeightSliderWidget({super.key});
@@ -14,8 +14,8 @@ class HeightSliderWidget extends StatelessWidget {
         shape: BoxShape.rectangle,
         color: Color(0xFF272D4D),
       ),
-      child: Consumer<BmiModel>(
-        builder: (context, bmiModel, child) {
+      child: BlocBuilder<BmiCubit, BmiState>(
+        builder: (context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -32,7 +32,7 @@ class HeightSliderWidget extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${bmiModel.height.toInt()}",
+                      text: "${state.height.toInt()}",
                       style: const TextStyle(
                         fontSize: 56.0,
                         fontWeight: FontWeight.bold,
@@ -57,11 +57,9 @@ class HeightSliderWidget extends StatelessWidget {
                 thumbColor: const Color(0xffFF0C63),
                 min: 50,
                 max: 250,
-                value: bmiModel.height,
-                onChanged: (value) {
-                  // call provider method to update height and notify listeners
-                  bmiModel.setHeightValue(value);
-                },
+                value: state.height,
+                onChanged: (value) =>
+                    context.read<BmiCubit>().setHeightValue(value),
               ),
             ],
           );
